@@ -1,0 +1,25 @@
+pipeline {
+  triggers {pollSCM ('H/3 * * * *')
+  }
+  options {disableConcurrentBuilds()
+  }
+  agent {node {
+label 'nodejs'
+}
+  }
+  stages {
+    stage ('Validate configuration resources') {
+      steps {
+sh 'oc apply --dry-run --validate -k config'
+      }
+    }
+    stage ('Apply resources') {
+      steps {
+      }
+    }
+    stage ('Verify test user') {
+      steps {
+      }
+    }
+  }
+}
